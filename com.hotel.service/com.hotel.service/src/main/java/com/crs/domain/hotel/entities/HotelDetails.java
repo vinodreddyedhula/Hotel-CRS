@@ -26,7 +26,6 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 @Entity(name="EPM_HOTEL")
 public class HotelDetails implements Serializable{
 	

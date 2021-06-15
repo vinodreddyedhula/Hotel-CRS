@@ -13,7 +13,6 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 @Entity(name="EPM_ADDRESS")
 public class Address {
     

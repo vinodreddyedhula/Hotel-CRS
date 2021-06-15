@@ -1,12 +1,11 @@
 package com.crs.app.hotel.service;
 
-import java.util.Optional;
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import com.crs.app.hotel.assembler.HotelAssembler;
 import com.crs.app.hotel.assembler.ModelMapperConverter;
 import com.crs.app.hotel.dto.HotelDTO;
 import com.crs.app.hotel.dto.HotelResponseDTO;
@@ -18,6 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Service("hotelApplicationService")
 @Slf4j
+@Transactional
 public class HotelApplicationService implements IHotelApplicationService{
 
 	@Autowired
@@ -50,6 +50,7 @@ public class HotelApplicationService implements IHotelApplicationService{
 		log.info("Update Hotel Details");
 		ModelMapperConverter hotelAssembler=new ModelMapperConverter();
 		HotelDetails hotelDetails=hotelAssembler.toDomainObject(hotelDTO);
+		hotelDetails.setKey(hotelId);
 		hotelDomainService.updateHotelDetails(hotelDetails);
 		HotelResponseDTO responseDTO=hotelAssembler.fromDomainObject(hotelDetails);
 		return responseDTO;

@@ -18,7 +18,6 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 @Entity(name="EPM_ROOMS")
 public class Rooms {
 	

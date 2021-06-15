@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.crs.app.hotel.dto.HotelDTO;
 import com.crs.app.hotel.dto.HotelResponseDTO;
+import com.crs.app.hotel.dto.SuccessResponse;
 import com.crs.app.hotel.interfaces.IHotelApplicationService;
 import com.crs.app.hotel.interfaces.IHotelControllerInterface;
 
@@ -31,29 +32,44 @@ public class HotelController implements IHotelControllerInterface{
 	public ResponseEntity<?> addHotel(
 			  @Valid @RequestBody HotelDTO hotelDto) {
 		HotelResponseDTO responseDTO=hotelAppService.addHotel(hotelDto);
-		return ResponseEntity.ok(responseDTO);
+		SuccessResponse<HotelResponseDTO> response=new SuccessResponse<HotelResponseDTO>(responseDTO);
+		return ResponseEntity.ok(response);
 	}
 	
 	@GetMapping("hotels/{hotel-id}")
 	public ResponseEntity<?> getHotelDetails( @PathVariable(value="hotel-id",required=true) String hotelId) {	
 		HotelResponseDTO responseDTO=hotelAppService.fetchHotelDtls(hotelId);
-		return ResponseEntity.ok(responseDTO);
+		SuccessResponse<HotelResponseDTO> response=new SuccessResponse<HotelResponseDTO>(responseDTO);
+		return ResponseEntity.ok(response);
 
-	}
-
-	@Override
-	@PutMapping("hotels/{hotel-id}")
-	public ResponseEntity<?> updateHotel(@Valid @RequestBody HotelDTO hotelDTO,
-			@NotNull @PathVariable(value="hotel-id",required=true) String hotelId) {
-		HotelResponseDTO responseDTO=hotelAppService.updateHotel(hotelDTO,hotelId);
-		return ResponseEntity.ok(responseDTO);
 	}
 
 	@Override
 	@DeleteMapping("hotels/{hotel-id}")
 	public ResponseEntity<?> deleteHotelDetails(@NotNull @PathVariable(value="hotel-id",required=true) String hotelId) {
 		HotelResponseDTO responseDTO=hotelAppService.deleteHotelDetails(hotelId);
-		return ResponseEntity.ok(responseDTO);
+		SuccessResponse<HotelResponseDTO> response=new SuccessResponse<HotelResponseDTO>(responseDTO);
+		return ResponseEntity.ok(response);
 	}
+	
+	@Override
+	@PutMapping("hotels/{hotel-id}")
+	public ResponseEntity<?> updateHotel(@Valid @RequestBody HotelDTO hotelDTO,
+			@NotNull @PathVariable(value="hotel-id",required=true) String hotelId) {
+		HotelResponseDTO responseDTO=hotelAppService.updateHotel(hotelDTO,hotelId);
+		SuccessResponse<HotelResponseDTO> response=new SuccessResponse<HotelResponseDTO>(responseDTO);
+		return ResponseEntity.ok(response);
+	}
+	
+	private class HotelAPIResponse extends SuccessResponse<HotelResponseDTO> {
+        public HotelAPIResponse(HotelResponseDTO response) {
+            super(response);
+        }
+
+       @Override
+        public HotelResponseDTO getResponse() {
+            return (HotelResponseDTO) super.getResponse();
+        }
+    }
 
 }

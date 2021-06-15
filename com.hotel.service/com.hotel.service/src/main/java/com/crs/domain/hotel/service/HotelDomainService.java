@@ -31,20 +31,20 @@ public class HotelDomainService {
 	
 	public HotelDetails fetchHotelDetails(String hotelId) {
 		Optional<HotelDetails> hotelDetails=repository.findById(hotelId);
-		if(!hotelDetails.isPresent()) {
-			throw new BusinessException("HOTEL_DTLS_NOT_FOUND","Hotel Details not found in system ");
-		}
+		validateHotelDtls(hotelDetails);
 		return hotelDetails.get();
 	}
 
 	public void deleteHotelDetails(String hotelId) {
 		Optional<HotelDetails> hotelDetails=repository.findById(hotelId);
-		if(hotelDetails.isPresent()) {
-			hotelDetails.get().setModifiedDate(new Date());
-			repository.delete(hotelDetails.get());
-		}else {
+		validateHotelDtls(hotelDetails);
+		hotelDetails.get().setModifiedDate(new Date());
+		repository.delete(hotelDetails.get());
+	}
+	
+	public void validateHotelDtls(Optional<HotelDetails> hotelDetails) {
+		if(!hotelDetails.isPresent()) {
 			throw new BusinessException("HOTEL_DTLS_NOT_FOUND","Hotel Details not found in system ");
 		}
-		
 	}
 }
