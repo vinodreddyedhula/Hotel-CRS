@@ -34,7 +34,7 @@ public class HotelAssembler {
 		address.setState(hotelDTO.getAddress().getState());
 		address.setAddressLine1(hotelDTO. getAddress().getAddressLine1());
 		address.setAddressLine2(hotelDTO. getAddress().getAddressLine2());
-		address.setPincode(hotelDTO.getAddress().getPinCode());
+		address.setPinCode(hotelDTO.getAddress().getPinCode());
 		
 		HashSet<Rooms> roomsList=new HashSet<Rooms>();
 		Rooms roomInfo=new Rooms();
@@ -74,7 +74,7 @@ public class HotelAssembler {
 		address.setState(hotelDetails.getAddress().getState());
 		address.setAddressLine1(hotelDetails. getAddress().getAddressLine1());
 		address.setAddressLine2(hotelDetails. getAddress().getAddressLine2());
-		address.setPinCode(hotelDetails.getAddress().getPincode());
+		address.setPinCode(hotelDetails.getAddress().getPinCode());
 		
 		HashSet<RoomsDTO> roomsList=new HashSet<RoomsDTO>();
 		RoomsDTO roomInfo=new RoomsDTO();

@@ -5,9 +5,11 @@ import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,10 +19,6 @@ import com.crs.app.hotel.dto.HotelResponseDTO;
 import com.crs.app.hotel.interfaces.IHotelApplicationService;
 import com.crs.app.hotel.interfaces.IHotelControllerInterface;
 
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
-
 @RestController
 @RequestMapping(value="/api/v1/",produces="application/json")
 public class HotelController implements IHotelControllerInterface{
@@ -29,23 +27,33 @@ public class HotelController implements IHotelControllerInterface{
 	  private IHotelApplicationService hotelAppService;
 	 
 
-	@PostMapping("hotel")
+	@PostMapping("hotels")
 	public ResponseEntity<?> addHotel(
-			 @NotNull @Valid @RequestBody HotelDTO hotelDto) {
+			  @Valid @RequestBody HotelDTO hotelDto) {
 		HotelResponseDTO responseDTO=hotelAppService.addHotel(hotelDto);
 		return ResponseEntity.ok(responseDTO);
 	}
 	
-	@GetMapping("hotel/{hotelName}/{city}")
-	public ResponseEntity<?> getHotelDetails(@NotNull @PathVariable String hotelName,
-			@NotNull @PathVariable String city) {										
-		return null;
+	@GetMapping("hotels/{hotel-id}")
+	public ResponseEntity<?> getHotelDetails( @PathVariable(value="hotel-id",required=true) String hotelId) {	
+		HotelResponseDTO responseDTO=hotelAppService.fetchHotelDtls(hotelId);
+		return ResponseEntity.ok(responseDTO);
+
 	}
 
 	@Override
-	public ResponseEntity<?> updateHotel(HotelDTO hotelDTO) {
-		// TODO Auto-generated method stub
-		return null;
+	@PutMapping("hotels/{hotel-id}")
+	public ResponseEntity<?> updateHotel(@Valid @RequestBody HotelDTO hotelDTO,
+			@NotNull @PathVariable(value="hotel-id",required=true) String hotelId) {
+		HotelResponseDTO responseDTO=hotelAppService.updateHotel(hotelDTO,hotelId);
+		return ResponseEntity.ok(responseDTO);
+	}
+
+	@Override
+	@DeleteMapping("hotels/{hotel-id}")
+	public ResponseEntity<?> deleteHotelDetails(@NotNull @PathVariable(value="hotel-id",required=true) String hotelId) {
+		HotelResponseDTO responseDTO=hotelAppService.deleteHotelDetails(hotelId);
+		return ResponseEntity.ok(responseDTO);
 	}
 
 }

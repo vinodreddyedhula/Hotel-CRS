@@ -23,12 +23,35 @@ public class HotelApplicationServiceTest {
 		HotelResponseDTO response=hotelService.addHotel(prepareHotelDTO());
 		assertEquals("00",response.getStatusCode());
 	}
+	
+	@Test
+	public void updateHotelDetailsTest() {
+		String hotelId="";
+		HotelResponseDTO response=hotelService.updateHotel(prepareHotelDTO(),hotelId);
+		assertEquals(hotelId,response.getKey());
+	}
+	
+	@Test
+	public void deleteHotelDetailsTest() {
+		String hotelId="";
+		HotelResponseDTO response=hotelService.deleteHotelDetails(hotelId);
+		assertEquals("00",response.getStatusCode());
+	}
+	
+	@Test
+	public void fetchHotelDtlsTest() {
+		String hotelId="";
+		HotelResponseDTO response=hotelService.fetchHotelDtls(hotelId);
+		assertEquals(hotelId,response.getKey());
+	}
 
 	private HotelDTO prepareHotelDTO() {
 		HotelDTO dto=new HotelDTO();
 		  dto.setHotelName("Radisson");
 		  dto.setRegion("India");
           dto.setStatus("Available");
+          dto.setTimings("Mon-Sun(24/7)");
+          dto.setAddress(null);
 		return dto;
 		
 	}

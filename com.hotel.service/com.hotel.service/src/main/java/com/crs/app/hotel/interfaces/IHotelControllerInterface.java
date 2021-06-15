@@ -25,7 +25,7 @@ public interface IHotelControllerInterface {
 			 @ApiResponse(code=400,message="Invalid Request",response=HotelResponseDTO.class),
 			 @ApiResponse(code=500,message="Internal validation error",response=HotelResponseDTO.class)
 	 })
-	public ResponseEntity<?> updateHotel(HotelDTO hotelDTO);
+	public ResponseEntity<?> updateHotel(HotelDTO hotelDTO,String hotelId);
 	 
 	 
 	 @ApiOperation(value="Fetch Hotel Details")
@@ -34,7 +34,15 @@ public interface IHotelControllerInterface {
 			 @ApiResponse(code=400,message="Invalid Request",response=HotelResponseDTO.class),
 			 @ApiResponse(code=500,message="Internal validation error",response=HotelResponseDTO.class)
 	 })
-	public ResponseEntity<?> getHotelDetails(String hotelName,String Region);
+	public ResponseEntity<?> getHotelDetails(String hotelId);
+	 
+	 @ApiOperation(value="Delete Hotel Details")
+	 @ApiResponses(value= {
+			 @ApiResponse(code=200,message="Successfully Deleted",response=HotelResponseDTO.class),
+			 @ApiResponse(code=400,message="Invalid Request",response=HotelResponseDTO.class),
+			 @ApiResponse(code=500,message="Internal validation error",response=HotelResponseDTO.class)
+	 })
+	public ResponseEntity<?> deleteHotelDetails(String hotelId);
 
 
 }

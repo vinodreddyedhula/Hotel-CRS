@@ -8,10 +8,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 public class HotelResponseDTO extends BaseResponse {
 
+
+	private static final long serialVersionUID = -876916994830663201L;
+	private String key;
 	private String hotelName;
 	private String region;
 	private String timings;

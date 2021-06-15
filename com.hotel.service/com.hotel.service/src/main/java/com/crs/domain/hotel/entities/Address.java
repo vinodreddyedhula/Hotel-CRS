@@ -30,13 +30,13 @@ public class Address {
 	private String city;
 	
 	@Column(name="DISTRICT")
-	private String District;
+	private String district;
 	
 	@Column(name="STATE")
 	private String state;
 	
 	@Column(name="PINCODE")
-	private String pincode;
+	private String pinCode;
 	
 	@Column(name="ADD_LINE1")
 	private String addressLine1;
